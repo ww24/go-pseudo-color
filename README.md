@@ -13,6 +13,9 @@ Features
 
 Examples
 --------
+### Grayscale (source)
+![source](fixture/line.png)
+
 ### Linear
 ![liner](line_linear.png)
 
