@@ -28,16 +28,18 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	defer file.Close()
 
-	pixel := pixel.NewPixel(file)
+	inPix := pixel.NewPixel(file)
+	var outPix *pixel.Pixel
 
 	switch mode {
 	case "linear":
-		pixel.Map(pseudo.Convlinear)
+		outPix = inPix.Map(pseudo.Convlinear)
 	case "sigmoid":
-		pixel.Map(pseudo.Convsigmoid)
+		outPix = inPix.Map(pseudo.Convsigmoid)
 	case "sin":
-		pixel.Map(pseudo.Convsin)
+		outPix = inPix.Map(pseudo.Convsin)
 	default:
 		fmt.Fprintln(os.Stderr, "mode = (linear, sigmoid, sin)")
 		return
@@ -47,17 +49,18 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	defer file.Close()
 
-	pixel.Save(file)
+	outPix.Save(file)
 }
 
 // line.png 生成
 func _main() {
-	pixel := new(pixel.Pixel)
+	pix := new(pixel.Pixel)
 	rect := image.Rect(0, 0, 500, 60)
-	pixel.RGBA = image.NewRGBA(rect)
-	pixel.Image = pixel.RGBA.SubImage(rect)
-	pixel.Map(func(x int, _ int, _ color.Color) (c color.Color) {
+	pix.RGBA = image.NewRGBA(rect)
+	pix.Image = pix.RGBA.SubImage(rect)
+	pix = pix.Map(func(x int, _ int, _ color.Color) (c color.Color) {
 		l := uint16(0xFFFF * x / 500)
 		c = color.Gray16{l}
 		return
@@ -67,6 +70,7 @@ func _main() {
 	if err != nil {
 		panic(err)
 	}
+	defer file.Close()
 
-	pixel.Save(file)
+	pix.Save(file)
 }

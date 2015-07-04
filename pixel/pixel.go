@@ -1,3 +1,7 @@
+/**
+ * image wrapper package
+ */
+
 package pixel
 
 import (
@@ -86,22 +90,23 @@ func (pixel *Pixel) Each(f func(int, int, color.Color)) {
 			f(x, y, pixel.Image.At(x, y))
 		}
 	}
-
-	pixel.Image = pixel.RGBA.SubImage(rect)
 }
 
 // Map method
-func (pixel *Pixel) Map(f func(int, int, color.Color) color.Color) {
+func (pixel *Pixel) Map(f func(int, int, color.Color) color.Color) (pix *Pixel) {
 	rect := pixel.Image.Bounds()
+
+	pix = &Pixel{RGBA: image.NewRGBA(rect)}
 
 	for x := rect.Min.X; x < rect.Max.X; x++ {
 		for y := rect.Min.Y; y < rect.Max.Y; y++ {
 			col := f(x, y, pixel.Image.At(x, y))
-			pixel.RGBA.Set(x, y, col)
+			pix.RGBA.Set(x, y, col)
 		}
 	}
 
-	pixel.Image = pixel.RGBA.SubImage(rect)
+	pix.Image = pix.RGBA.SubImage(rect)
+	return
 }
 
 // Save method

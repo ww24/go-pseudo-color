@@ -1,5 +1,5 @@
 /**
- * pseudo color function
+ * pseudo color package
  */
 
 package pseudo
@@ -9,8 +9,8 @@ import (
 	"math"
 )
 
-// Convlinear RGB 線形関数
-func Convlinear(x int, y int, c color.Color) color.Color {
+// ConvLinear RGB 線形関数
+func ConvLinear(x int, y int, c color.Color) color.Color {
 	r, g, b, _ := c.RGBA()
 
 	l := float64(r)
@@ -41,8 +41,8 @@ func Convlinear(x int, y int, c color.Color) color.Color {
 	return color.RGBA64{uint16(r), uint16(g), uint16(b), 0xFFFF}
 }
 
-// Convsigmoid RGB 非線形関数 sigmoid
-func Convsigmoid(_ int, _ int, c color.Color) color.Color {
+// ConvSigmoid RGB 非線形関数 sigmoid
+func ConvSigmoid(_ int, _ int, c color.Color) color.Color {
 	r, g, b, _ := c.RGBA()
 
 	l := float64(r)
@@ -61,8 +61,8 @@ func Convsigmoid(_ int, _ int, c color.Color) color.Color {
 	return color.RGBA64{uint16(r), uint16(g), uint16(b), 0xFFFF}
 }
 
-// Convsin RGB 非線形関数 sin
-func Convsin(_ int, _ int, c color.Color) color.Color {
+// ConvSin RGB 非線形関数 sin
+func ConvSin(_ int, _ int, c color.Color) color.Color {
 	r, g, b, _ := c.RGBA()
 
 	l := float64(r) / 0xFFFF
