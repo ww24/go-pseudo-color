@@ -35,11 +35,11 @@ func main() {
 
 	switch mode {
 	case "linear":
-		outPix = inPix.Map(pseudo.Convlinear)
+		outPix = inPix.Map(pseudo.ConvLinear)
 	case "sigmoid":
-		outPix = inPix.Map(pseudo.Convsigmoid)
+		outPix = inPix.Map(pseudo.ConvSigmoid)
 	case "sin":
-		outPix = inPix.Map(pseudo.Convsin)
+		outPix = inPix.Map(pseudo.ConvSin)
 	default:
 		fmt.Fprintln(os.Stderr, "mode = (linear, sigmoid, sin)")
 		return
